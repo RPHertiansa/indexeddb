@@ -113,22 +113,29 @@ function createDB() {
 
 }   
 
-function getItem() {
-    const dbName = document.getElementById("txtDB").value
-    const dbVersion = document.getElementById('txtVersion').value
+function getItem(id) {
 
-    const request = indexedDB.open(dbName, dbVersion)
+    if (db) {
+        const get = db.transaction('product', 'readonly')
+        const store = get.objectStore('product')
 
-    request.onupgradeneeded = e => {
-        console.log('upgrade is called')
-    }
+        get.onerror = e => {
+            console.log('error')
+        }
 
-    request.onsuccess = e => {
-        console.log('success')
-    }
+        store.transaction.oncomplete = e => {
+            console.log('success')
+        }
+        let request = store.get(id)
+            
 
-    request.onerror = e => {
-        console.log("error")
+        request.onerror = e => {
+            console.log('get error')
+        }
+
+        request.onsuccess = e => {
+            console.log('get success', request.result)
+        }
     }
 
 } 
@@ -159,64 +166,56 @@ function insertItem(products) {
             }
 
         });
-
-        
     }
-    // const dbName = document.getElementById("txtDB").value
-    // const dbVersion = document.getElementById('txtVersion').value
-
-    // const request = indexedDB.open(dbName, dbVersion)
-
-    // request.onupgradeneeded = e => {
-    //     console.log('upgrade is called')
-    // }
-
-    // request.onsuccess = e => {
-    //     console.log('success')
-    // }
-
-    // request.onerror = e => {
-    //     console.log("error")
-    // }
-
 } 
 
-function updateItem() {
-    const dbName = document.getElementById("txtDB").value
-    const dbVersion = document.getElementById('txtVersion').value
+function updateItem(id) {
+    if (db) {
+        const update = db.transaction('product', 'readwrite')
+        const store = update.objectStore('product')
 
-    const request = indexedDB.open(dbName, dbVersion)
+        update.onerror = e => {
+            console.log('error')
+        }
 
-    request.onupgradeneeded = e => {
-        console.log('upgrade is called')
-    }
+        store.transaction.oncomplete = e => {
+            console.log('success')
+        }
+        let request = store.put(id)
+            
 
-    request.onsuccess = e => {
-        console.log('success')
-    }
+        request.onerror = e => {
+            console.log('get error')
+        }
 
-    request.onerror = e => {
-        console.log("error")
+        request.onsuccess = e => {
+            console.log('get success', request.result)
+        }
     }
 
 } 
 
-function deleteItem() {
-    const dbName = document.getElementById("txtDB").value
-    const dbVersion = document.getElementById('txtVersion').value
+function deleteItem(id) {
+    if (db) {
+        const del = db.transaction('product', 'readwrite')
+        const store = del.objectStore('product')
 
-    const request = indexedDB.open(dbName, dbVersion)
+        del.onerror = e => {
+            console.log('error')
+        }
 
-    request.onupgradeneeded = e => {
-        console.log('upgrade is called')
+        store.transaction.oncomplete = e => {
+            console.log('success')
+        }
+        let request = store.delete(id)
+            
+
+        request.onerror = e => {
+            console.log('get error')
+        }
+
+        request.onsuccess = e => {
+            console.log('get success', request.result)
+        }
     }
-
-    request.onsuccess = e => {
-        console.log('success')
-    }
-
-    request.onerror = e => {
-        console.log("error")
-    }
-
 } 
