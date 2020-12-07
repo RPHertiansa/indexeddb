@@ -1,0 +1,22 @@
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 200%;
+  color: #7c7cff;
+}
+
+body {
+  margin: 20px;
+  padding: 10px;
+  background-color: #dadada;
+}
+
+.table {
+  background-color: gray;
+  color: #dadada;
+  margin: 20px auto;
+  width: 500px;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=main.css.map */
